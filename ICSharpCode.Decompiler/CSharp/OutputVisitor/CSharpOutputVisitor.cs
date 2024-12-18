@@ -566,7 +566,12 @@ namespace ICSharpCode.Decompiler.CSharp.OutputVisitor
 
 		protected virtual void WriteAttributes(IEnumerable<AttributeSection> attributes)
 		{
-			foreach (AttributeSection attr in attributes)
+			var l = attributes.ToList();
+			l.Sort((a, b) => {
+				return a.ToString().CompareTo(b.ToString());
+			});
+
+			foreach (AttributeSection attr in l)
 			{
 				attr.AcceptVisitor(this);
 			}
